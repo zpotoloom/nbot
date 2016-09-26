@@ -1,0 +1,13 @@
+{
+  "name": "nbot",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "irc": "*",
+    "irc-colors": "*",
+    "url-regexp": "^1.0.2",
+    "url-to-title": "^1.0.5",
+    "weather-js": "*",
+    "trim": "*"
+  }
+}
