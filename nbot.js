@@ -83,11 +83,19 @@ function getweather(location, cb) {
 }
 
 
+// Join channel after motd
+bot.addListener('motd', function(motd) {
+	bot.join(config.channel + ' Password');
+});
+
+// Listen for errors, otherwise causes crash
+bot.addListener('error', function(message) {
+    console.log('error: ', message);
+});
+
 // MAIN BOT LOOP
 bot.addListener("message", function(from, to, text) {
 
-console.log(text);
-bot.join(config.channel);
 
 
 switch(true){
