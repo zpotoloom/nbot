@@ -1,8 +1,12 @@
 {
   "name": "nbot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
+  "scripts": {
+    "start": "./config.sh && node nbot.js"
+  },
   "dependencies": {
+    "prompt": "*",
     "irc": "*",
     "irc-colors": "*",
     "url-regexp": "^1.0.2",

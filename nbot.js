@@ -1,14 +1,12 @@
-var config = {
-        channel: "#nbot",
-        server: "irc.example.com",
-        botName: "nbot"
-};
+var config = require('./config.json');
 
 var irc = require("irc");
 
-var bot = new irc.Client(config.server, config.botName, {
-        channels: config.channels
+var bot = new irc.Client(config.Server, config.Nick, {
 });
+
+console.log("Starting IRC bot");
+console.log("Connecting to " + config.Server + " channel " + config.Channel + " as " + config.Nick);
 
 // Weather plugin using bing
 var weather = require('weather-js');
@@ -77,7 +75,7 @@ function getweather(location, cb) {
                 if ( direction == "Northwest" ) {
                         direction = "\u2198";
                 }
-                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ")  : Wind" + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ")");
+                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ")  : Wind " + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ")");
         }
         });
 }
@@ -85,7 +83,8 @@ function getweather(location, cb) {
 
 // Join channel after motd
 bot.addListener('motd', function(motd) {
-	bot.join(config.channel + ' Password');
+	bot.join(config.Channel);
+	bot.send('PRIVMSG', 'nickserv', 'identify', config.Password);
 });
 
 // Listen for errors, otherwise causes crash
@@ -104,25 +103,25 @@ case RegExp('^!help.*$','i').test(text):
         if ( command !== undefined ) {
                 switch (true) {
                 case RegExp('^help$','i').test(command):
-                        bot.say(config.channel, c.green("!HELP"));
+                        bot.say(config.Channel, c.green("!HELP"));
                         break;
                 case RegExp('^ilm$','i').test(command):
-                        bot.say(config.channel, c.green("Shows weather for Tallinn or requested city"));
+                        bot.say(config.Channel, c.green("Shows weather for Tallinn or requested city"));
                         break;
 		}
         } else {
-		bot.say(config.channel, c.green("Available commands: !help !ilm"));
+		bot.say(config.Channel, c.green("Available commands: !help !ilm"));
         }
         break;
 case RegExp('^!ilm.*','i').test(text):
         getweather(text, function(result) {
-                bot.say(config.channel, c.bold(result));
+                bot.say(config.Channel, c.bold(result));
         });
         break;
 case RegExp('http','i').test(text):
         get_title(text, function(result) {
                 if( result !== false ) {
-                        bot.say(config.channel, c.pink(result));
+                        bot.say(config.Channel, c.pink(result));
                 }
         });
         break;
