@@ -5,8 +5,11 @@ Deps:
 
 install nodejs and npm
 
-run ./setup.sh ( installs deps from package.json )
+https://nodejs.org/en/download/package-manager/
 
-edit nbot.js, server, channel, nick for the bot
 
-run the bot: node nbot.js
+Installs dependent modules
+Run: npm install
+
+Start bot with first time configuration wizard:
+Run: npm start
