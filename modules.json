@@ -1,0 +1,16 @@
+{
+	"modules": [
+                {
+                "description": "Gets title from URL",
+                "expression": "http",
+                "command": "URL-detection",
+                "module": "get_title"
+                },
+                {
+                "description": "Fetches weather info from Bing",
+                "expression": "^!ilm.*",
+		"command": "!ilm",
+                "module": "get_weather"
+                }
+	]
+}

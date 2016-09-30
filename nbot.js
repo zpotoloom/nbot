@@ -1,4 +1,5 @@
 var config = require('./config.json');
+var fs = require('fs');
 
 var irc = require("irc");
 
@@ -7,78 +8,6 @@ var bot = new irc.Client(config.Server, config.Nick, {
 
 console.log("Starting IRC bot");
 console.log("Connecting to " + config.Server + " channel " + config.Channel + " as " + config.Nick);
-
-// Weather plugin using bing
-var weather = require('weather-js');
-// For colorizing IRC output
-var c = require('irc-colors');
-
-// Too much for just title, REWRITE
-var url = require('url-regexp');
-var title = require('url-to-title');
-var trim = require('trim');
-
-
-
-
-/*
- * Get Title of URL
- **/
-function get_title(text, cb) {
-        if (  url.match(text)[0] == undefined ) {
-                cb(false);
-        } else {
-                title( url.match(text)[0] ).then(function(title) {
-                        cb(trim(title));
-                });
-        }
-}
-
-
-/*
- * Get weather for Tallinn or specified town
- **/
-function getweather(location, cb) {
-        var args = location.split(" ");
-        var city = args[1];
-        if ( city == undefined ) {
-                city = 'Tallinn';
-        } else if ( city.length == 0 ) { city = 'Tallinn'; }
-        weather.find({search: city, degreeType: 'C'}, function(err, result) {
-        if(err) {
-                console.log(err);
-        } else {
-                var ms = result[0].current.windspeed.split(" ")[0] / 3.6;
-                var direction = result[0].current.winddisplay.split(" ")[2];
-                var dir_text = direction;
-                if ( direction == "North" ) {
-                        direction = "\u2193";
-                }
-                if ( direction == "East" ) {
-                        direction = "\u2190";
-                }
-                if ( direction == "West" ) {
-                        direction = "\u2192";
-                }
-                if ( direction == "South" ) {
-                        direction = "\u2191";
-                }
-                if ( direction == "Northeast" ) {
-                        direction = "\u2199";
-                }
-                if ( direction == "Southeast" ) {
-                        direction = "\u2196";
-                }
-                if ( direction == "Southwest" ) {
-                        direction = "\u2197";
-                }
-                if ( direction == "Northwest" ) {
-                        direction = "\u2198";
-                }
-                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ")  : Wind " + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ")");
-        }
-        });
-}
 
 
 // Join channel after motd
@@ -89,45 +18,37 @@ bot.addListener('motd', function(motd) {
 
 // Listen for errors, otherwise causes crash
 bot.addListener('error', function(message) {
-    console.log('error: ', message);
+	console.log('error: ', message);
 });
 
 // MAIN BOT LOOP
 bot.addListener("message", function(from, to, text) {
 
-
-
-switch(true){
-case RegExp('^!help.*$','i').test(text):
-        var command = text.split(" ")[1];
-        if ( command !== undefined ) {
-                switch (true) {
-                case RegExp('^help$','i').test(command):
-                        bot.say(config.Channel, c.green("!HELP"));
-                        break;
-                case RegExp('^ilm$','i').test(command):
-                        bot.say(config.Channel, c.green("Shows weather for Tallinn or requested city"));
-                        break;
-		}
-        } else {
-		bot.say(config.Channel, c.green("Available commands: !help !ilm"));
-        }
-        break;
-case RegExp('^!ilm.*','i').test(text):
-        getweather(text, function(result) {
-                bot.say(config.Channel, c.bold(result));
-        });
-        break;
-case RegExp('http','i').test(text):
-        get_title(text, function(result) {
-                if( result !== false ) {
-                        bot.say(config.Channel, c.pink(result));
-                }
-        });
-        break;
-default:
-	console.log(text);
-        break;
-}
+	var re = new RegExp('^!m');
+	if ( re.test(text)) {
+		var available = "";
+		var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
+		dyna.modules.forEach(function(value, key) {
+			available = available + ' ' + value.command;
+		});
+		bot.say(config.Channel, "Modules: " + available);
+	}
+	var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
+	dyna.modules.forEach(function(value, key) {
+	        var re = new RegExp(value.expression,'i');
+	
+	        if (re.test(text)) {
+	                var module = require('./modules/' + value.module);
+	
+	                module[value.module](text, function(result) {
+	                        if ( result !== false ) {
+	                                console.log(result);
+					bot.say(config.Channel, result);
+	                        }
+	
+	                });
+	                return;
+	        }
+	});
 
 });
