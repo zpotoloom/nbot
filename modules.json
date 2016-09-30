@@ -1,13 +1,19 @@
 {
 	"modules": [
                 {
-                "description": "Gets title from URL",
+                "description": "Gets title from URL in text",
                 "expression": "http",
                 "command": "URL-detection",
                 "module": "get_title"
                 },
                 {
-                "description": "Fetches weather info from Bing",
+                "description": "Help",
+                "expression": "^!help",
+                "command": "!help <module>",
+                "module": "get_help"
+                },
+                {
+                "description": "Usage: !ilm <location>\nFetches weather info for location, default Tallinn",
                 "expression": "^!ilm.*",
 		"command": "!ilm",
                 "module": "get_weather"
