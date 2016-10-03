@@ -13,7 +13,11 @@ module.exports =
 	                cb(false);
 	        } else {
 	                title( url.match(text)[0] ).then(function(title) {
-	                        cb(trim(title));
+				if ( title !== undefined ) {
+	                        	cb(trim(title));
+				} else {
+					cb(false);
+				}
 	                });
 	        }
 	}

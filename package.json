@@ -9,8 +9,8 @@
     "prompt": "*",
     "irc": "*",
     "irc-colors": "*",
-    "url-regexp": "^1.0.2",
-    "url-to-title": "^1.0.5",
+    "url-regexp": "*",
+    "url-to-title": "*",
     "weather-js": "*",
     "trim": "*"
   }
