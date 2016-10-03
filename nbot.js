@@ -16,7 +16,7 @@ function check_for_command(text) {
                 var re = new RegExp(value.expression,'i');
                 if (re.test(text)) {
 
-                        var module = require('./modules/' + value.module);
+                        var module = require('./modules/' + value.module + '.js');
                         module[value.module](text, function(result) {
                                 if ( result !== false ) {
                                         bot.say(config.Channel, result);
