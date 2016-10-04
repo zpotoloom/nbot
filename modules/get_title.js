@@ -15,7 +15,9 @@ module.exports =
 	        } else {
 			var request = require('request');
 			request( url.match(text)[0], {method: 'HEAD'}, function (err, res, body){
-				if ( res.headers['content-type'] == 'text/html' ) {
+				var re = new RegExp('text.html');
+                		if (re.test(res.headers['content-type'])) {
+				//if ( res.headers['content-type'] == 'text/html' ) {
 					title( url.match(text)[0] ).then(function(title) {
 						if ( title !== undefined ) {
 				                       	cb(trim(title));
