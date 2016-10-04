@@ -12,6 +12,7 @@
     "url-regexp": "*",
     "url-to-title": "*",
     "weather-js": "*",
-    "trim": "*"
+    "trim": "*",
+    "g-i-s": "*"
   }
 }

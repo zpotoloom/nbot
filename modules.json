@@ -23,6 +23,12 @@
                 "expression": "^!ilm.*",
 		"command": "!ilm",
                 "module": "get_weather"
+                },
+                {
+                "description": "Fetches random boob URL",
+                "expression": "^!boobs$",
+                "command": "!boobs",
+                "module": "get_boobs"
                 }
 	]
 }
