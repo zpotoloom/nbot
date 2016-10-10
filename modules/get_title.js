@@ -26,7 +26,7 @@ module.exports =
 						}
 			                });
                                 } else {
-                                        cb(res.headers['content-type'] + ' ' + res.headers['content-length']);
+                                        cb(false);//cb(res.headers['content-type'] + ' ' + res.headers['content-length']);
                                 }
                         });
 	        }
