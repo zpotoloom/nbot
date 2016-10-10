@@ -7,7 +7,7 @@ var bot = new irc.Client(config.Server, config.Nick, {
 });
 
 // Checks if input matches command expression and executes modules
-function check_for_command(text) {
+function check_for_command(from,text) {
 	var fs = require('fs');
         var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
 
@@ -17,7 +17,7 @@ function check_for_command(text) {
                 if (re.test(text)) {
 
                         var module = require('./modules/' + value.module + '.js');
-                        module[value.module](text, function(result) {
+                        module[value.module](from,text, function(result) {
                                 if ( result !== false ) {
                                         bot.say(config.Channel, result);
                                 }
@@ -44,5 +44,5 @@ bot.addListener('error', function(message) {
 
 // Listen for messages 
 bot.addListener("message", function(from, to, text) {
-	check_for_command(text);
+	check_for_command(from,text);
 });

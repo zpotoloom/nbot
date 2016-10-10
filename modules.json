@@ -29,6 +29,12 @@
                 "expression": "^!boobs$",
                 "command": "!boobs",
                 "module": "get_boobs"
+                },
+                {
+                "description": "Small betting engine. Usage: !when create betname, !when show betname, !when bet 2016-10-06 betname",
+                "expression": "^!when.*",
+                "command": "!when",
+                "module": "get_when"
                 }
 	]
 }

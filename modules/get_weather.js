@@ -6,7 +6,7 @@ module.exports = {
 	/*
 	 * Get weather for Tallinn or specified town
 	 **/
-	get_weather: function(location, cb) {
+	get_weather: function(from, location, cb) {
 	        var args = location.split(" ");
 	        var city = args[1];
 	        if ( city == undefined ) {

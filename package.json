@@ -13,6 +13,7 @@
     "url-to-title": "*",
     "weather-js": "*",
     "trim": "*",
-    "g-i-s": "*"
+    "g-i-s": "*",
+    "node-json-db": "*"
   }
 }

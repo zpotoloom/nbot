@@ -9,7 +9,7 @@ module.exports =
 	/*
 	 * Get Title of URL
 	 **/
-	get_title: function(text, cb) {
+	get_title: function(from, text, cb) {
 	        if (  url.match(text)[0] == undefined ) {
 	                cb(false);
 	        } else {

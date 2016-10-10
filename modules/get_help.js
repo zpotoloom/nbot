@@ -5,7 +5,7 @@ module.exports =
 	/*
 	 * Get help for modules 
 	 **/
-	get_help: function(text, cb) {
+	get_help: function(from, text, cb) {
 		var command = text.split(" ")[1];
 		if ( command !== undefined ) {
 			var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));

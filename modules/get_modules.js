@@ -6,7 +6,7 @@ module.exports = {
 	/**
 	 * Lists available modules
 	 **/
-	get_modules: function ( text, cb ) {
+	get_modules: function ( from, text, cb ) {
 		var available = "";
 		var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
 		dyna.modules.forEach(function(value, key) {

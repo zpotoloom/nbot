@@ -2,7 +2,7 @@ var gis = require('g-i-s');
 
 module.exports = {
 
-	get_boobs: function(text, cb) {
+	get_boobs: function(from, text, cb) {
 		gis('boobs site:tumblr.com', logResults);
 		
 		function logResults(error, results) {
