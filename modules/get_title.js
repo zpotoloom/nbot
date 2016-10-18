@@ -20,7 +20,7 @@ module.exports =
 				//if ( res.headers['content-type'] == 'text/html' ) {
 					title( url.match(text)[0] ).then(function(title) {
 						if ( title !== undefined ) {
-				                       	cb(trim(title));
+				                       	cb(trim('[ ' + title + ' ]'));
 						} else {
 							cb(false);
 						}
