@@ -7,7 +7,7 @@ var bot = new irc.Client(config.Server, config.Nick, {
 });
 
 // Checks if input matches command expression and executes modules
-function check_for_command(from,text) {
+function check_for_command(from, to, text) {
 	var fs = require('fs');
         var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
 
@@ -19,7 +19,7 @@ function check_for_command(from,text) {
                         var module = require('./modules/' + value.module + '.js');
                         module[value.module](from,text, function(result) {
                                 if ( result !== false ) {
-                                        bot.say(config.Channel, result);
+                                        bot.say(to, result);
                                 }
                         });
                         return;
@@ -28,12 +28,19 @@ function check_for_command(from,text) {
 }
 
 console.log("Starting IRC bot");
-console.log("Connecting to " + config.Server + " channel " + config.Channel + " as " + config.Nick);
+console.log("Connecting to " + config.Server + " channel(s) " + config.Channels + " as " + config.Nick);
 
 
 // Join channel after motd
 bot.addListener('motd', function(motd) {
-	bot.join(config.Channel);
+	var channels = config.Channels.split(",");
+	if ( channels.constructor.prototype.hasOwnProperty('push') ) {
+		channels.forEach(function(value) {
+			bot.join(value);
+		});
+	} else {
+		bot.join(config.Channels);
+	}
 	bot.send('PRIVMSG', 'nickserv', 'identify', config.Password);
 });
 
@@ -44,5 +51,5 @@ bot.addListener('error', function(message) {
 
 // Listen for messages 
 bot.addListener("message", function(from, to, text) {
-	check_for_command(from,text);
+	check_for_command(from, to, text);
 });

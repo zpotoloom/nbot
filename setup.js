@@ -1,4 +1,5 @@
 var prompt = require('prompt');
+var util = require('util');
 
 var config_params = [
   {
@@ -8,9 +9,9 @@ var config_params = [
     required: true
   },
   {
-    name: 'Channel',
+    name: 'Channels',
     validator: /^#.*/,
-    warning: 'Must start with #',
+    warning: 'Must start with #, comma separated channels',
     required: true
   },
   {
@@ -41,7 +42,7 @@ prompt.get(config_params, function(err, result) {
   if (err) { return onErr(err); }
   console.log('Write the following configuration to file ?');
   console.log('  Server: ' + result.Server);
-  console.log('  Channel: ' + result.Channel);
+  console.log('  Channels: ' + util.inspect(result.Channels));
   console.log('  Nick: ' + result.Nick);
 
   config_options = JSON.stringify(result);
