@@ -1,7 +1,7 @@
 var prompt = require('prompt');
 var util = require('util');
 
-var all_config_options = '';
+var all_config_options = '[\n';
 
 var config_params = [
   {
@@ -61,6 +61,7 @@ console.log('Specify IRC bot configuration parameters.');
 		all_config_options = all_config_options + ',\n';
 		add_server();
 	      } else {
+	      	all_config_options = all_config_options + '\n]';
 	      	console.log('Saving configuration');
 	  	fs = require('fs');
 	  	fs.appendFile('config.json', all_config_options, function(err) {
