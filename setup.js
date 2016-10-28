@@ -11,8 +11,9 @@ var config_params = [
     required: true
   },
   {
-    name: 'Channels',
+    name: 'Channel',
     validator: /^#.*/,
+    type: 'array',
     warning: 'Must start with #, comma separated channels',
     required: true
   },
@@ -46,7 +47,7 @@ console.log('Specify IRC bot configuration parameters.');
     if (err) { return onErr(err); }
     console.log('Added server to configuration');
     console.log('  Server: ' + result.Server);
-    console.log('  Channels: ' + util.inspect(result.Channels));
+    console.log('  Channels: ' + util.inspect(result.Channel));
     console.log('  Nick: ' + result.Nick);
   
     config_options = JSON.stringify(result, null, 4);

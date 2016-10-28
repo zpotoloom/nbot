@@ -32,13 +32,13 @@ function start_bot(config) {
 		autoRejoin: true
 	});
 	
-	console.log("Connecting to " + config.Server + " channel(s) " + config.Channels + " as " + config.Nick);
+	var util = require('util');
+	console.log("Connecting to " + config.Server + " channel(s) " + util.inspect(config.Channel) + " as " + config.Nick);
 	
 	// Join channel after motd
 	bot.addListener('motd', function(motd) {
-		var channels = config.Channels.split(",");
-		if ( channels.constructor.prototype.hasOwnProperty('push') ) {
-			channels.forEach(function(value) {
+		if ( config.Channel.constructor.prototype.hasOwnProperty('push') ) {
+			config.Channel.forEach(function(value) {
 				bot.join(value);
 			});
 		} else {
