@@ -25,16 +25,10 @@
                 "module": "get_weather"
                 },
                 {
-                "description": "Fetches random boob URL",
-                "expression": "^!boobs$",
-                "command": "!boobs",
-                "module": "get_boobs"
-                },
-                {
-                "description": "Small betting engine. Usage: !when create betname, !when show betname, !when bet 2016-10-06 betname",
-                "expression": "^!when.*",
-                "command": "!when",
-                "module": "get_when"
+                "description": "Usage: !pic keyword\nFetches requested keyword picture URL from tumblr",
+                "expression": "^!pic.*",
+                "command": "!pic",
+                "module": "get_pic"
                 }
-	]
+	}	
 }
