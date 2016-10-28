@@ -15,7 +15,7 @@ function check_for_command(from, to, text) {
 
                 var re = new RegExp(value.expression,'i');
                 if (re.test(text)) {
-
+			console.log('Channel: ' + to + ' User: ' + from + ' Command: ' + text);
                         var module = require('./modules/' + value.module + '.js');
                         module[value.module](from,text, function(result) {
                                 if ( result !== false ) {
