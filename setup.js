@@ -1,6 +1,8 @@
 var prompt = require('prompt');
 var util = require('util');
 
+var all_config_options = '';
+
 var config_params = [
   {
     name: 'Server', 
@@ -27,7 +29,7 @@ var config_params = [
 
 var yes_no = [
   {
-    name: 'Save',
+    name: 'Add',
     validator: /^[yn]$/,
     warning: 'Input y or n'
   }
@@ -38,31 +40,41 @@ prompt.start();
 
 console.log('Specify IRC bot configuration parameters.');
 
-prompt.get(config_params, function(err, result) {
-  if (err) { return onErr(err); }
-  console.log('Write the following configuration to file ?');
-  console.log('  Server: ' + result.Server);
-  console.log('  Channels: ' + util.inspect(result.Channels));
-  console.log('  Nick: ' + result.Nick);
-
-  config_options = JSON.stringify(result);
-
-  prompt.delimiter = ' (y/n) ';
-  prompt.get(yes_no, function(err, result) {
-    if (err) {return onErr(err); }
-	if (result.Save == 'y') { 
-	  fs = require('fs');
-	  fs.appendFile("config.json", config_options, function(err) {
-	    if(err) {
-	      console.log(err);
-	    } else {
-		console.log('Configuration written to config.json'); 
-	    }
+( function add_server() {
+  prompt.delimiter = ':';
+  prompt.get(config_params, function(err, result) {
+    if (err) { return onErr(err); }
+    console.log('Added server to configuration');
+    console.log('  Server: ' + result.Server);
+    console.log('  Channels: ' + util.inspect(result.Channels));
+    console.log('  Nick: ' + result.Nick);
+  
+    config_options = JSON.stringify(result, null, 4);
+    all_config_options = all_config_options + config_options;
+  
+  
+  
+	  prompt.delimiter = ' another server ? (y/n): ';
+	  prompt.get(yes_no, function(err, result) {
+	    if (err) {return onErr(err); }
+	      if (result.Add == 'y'){
+		all_config_options = all_config_options + ',\n';
+		add_server();
+	      } else {
+	      	console.log('Saving configuration');
+	  	fs = require('fs');
+	  	fs.appendFile('config.json', all_config_options, function(err) {
+	  	  if(err) {
+	  	  	console.log(err);
+	  	  } else {
+	  	  	console.log('Configuration written to config.json');
+	  	  }
+	  	});
+	      }
 	  });
-	}
-	else console.log('Configuration cancelled');
   });
-});
+	
+}());
 
 function onErr(err) {
   console.log(err);
