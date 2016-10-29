@@ -17,7 +17,6 @@ module.exports =
 			request( url.match(text)[0], {method: 'HEAD'}, function (err, res, body){
 				var re = new RegExp('text.html');
                 		if (re.test(res.headers['content-type'])) {
-				//if ( res.headers['content-type'] == 'text/html' ) {
 					try {
 						title( url.match(text)[0] ).then(function(title) {
 							if ( title !== undefined ) {
@@ -32,7 +31,7 @@ module.exports =
 						cb(false);
 					}
                                 } else {
-                                        cb(false);//cb(res.headers['content-type'] + ' ' + res.headers['content-length']);
+                                        cb(false);
                                 }
                         });
 	        }
