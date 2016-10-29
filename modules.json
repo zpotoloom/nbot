@@ -7,18 +7,6 @@
                 "module": "get_title"
                 },
                 {
-                "description": "Shows module usage and purpose",
-                "expression": "^!help",
-                "command": "!help <module>",
-                "module": "get_help"
-                },
-                {
-                "description": "Lists all available modules",
-                "expression": "^!modules$",
-                "command": "!modules",
-                "module": "get_modules"
-                },
-                {
                 "description": "Usage: !ilm <location>\nFetches weather info for location, default Tallinn",
                 "expression": "^!ilm.*",
 		"command": "!ilm",
