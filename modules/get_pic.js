@@ -15,7 +15,12 @@ module.exports = {
 		    console.log(error);
 		  }
 		  else {
-		    cb(results[Math.floor( Math.random() * ( results.length - 1 ) )].url);
+		    var result = results[Math.floor( Math.random() * ( results.length - 1 ) )];
+		    if ( result.url !=== undefined ) {
+		    	cb(result.url);
+		    } else {
+			cb('Try harder!');
+		    }
 		  }
 		}
 	}
