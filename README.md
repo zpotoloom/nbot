@@ -1,7 +1,7 @@
 # nbot
-nodejs IRC bot
+Simple IRC bot written in JS
 
-Deps:
+Dependencies
 
 install nodejs and npm
 
