@@ -16,7 +16,8 @@ module.exports = {
 		  }
 		  else {
 		    var result = results[Math.floor( Math.random() * ( results.length - 1 ) )];
-		    if ( result.url !== undefined ) {
+		    console.log(result);
+		    if ( result ) {
 		    	cb(result.url);
 		    } else {
 			cb('Try harder!');
