@@ -8,7 +8,7 @@ module.exports = {
 			.pull(function(err, update) {
 				if(update && update.summary.changes) {
 					var util = require('util');
-					cb(util.inspect(update.files), util.inspect(update.summary));
+					cb(util.inspect(update.files) + ' ' + util.inspect(update.summary));
 				}
 			})
 			.then(function() {
