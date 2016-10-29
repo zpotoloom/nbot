@@ -29,6 +29,12 @@
                 "expression": "^!pic.*",
                 "command": "!pic",
                 "module": "get_pic"
+                },
+		{
+                "description": "Usage: !update\nPulls latest changes from github",
+                "expression": "^!update",
+                "command": "!update",
+                "module": "get_updates"
                 }
 	]	
 }

@@ -11,6 +11,7 @@
     "irc-colors": "1.3.0",
     "node-json-db": "0.7.3",
     "prompt": "1.0.0",
+    "simple-git": "1.59.0",
     "trim": "0.0.1",
     "url-regexp": "1.0.2",
     "url-to-title": "1.0.6",
