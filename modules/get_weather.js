@@ -10,7 +10,7 @@ module.exports = {
 	        var args = location.split(" ");
 	        var city = args[1];
 	        if ( city == undefined ) {
-	                city = 'Põlva';
+	                city = 'Tallinn';
 	        } else if ( city.length == 0 ) { city = 'Tallinn'; }
 	        weather.find({search: city, degreeType: 'C'}, function(err, result) {
 	        if(err) {
