@@ -14,7 +14,10 @@ function check_for_command(bot, server, from, channel, text) {
                 var re = new RegExp(value.expression,'i');
                 if (re.test(text)) {
 			console.log('Server: ' + server + ' Channel: ' + channel + ' User: ' + from + ' Command: ' + text);
-                        var module = require('./modules/' + value.module + '.js');
+                        // delete module from cache to allow dynamic changes
+			delete require.cache[require.resolve('./modules/' + value.module + '.js')];
+			// load module from disk
+			var module = require('./modules/' + value.module + '.js');
                         module[value.module](from,text, function(result) {
                                 if ( result !== false ) {
                                         bot.say(channel, result);
