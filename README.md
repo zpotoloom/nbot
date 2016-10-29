@@ -7,15 +7,18 @@ install nodejs and npm
 
 https://nodejs.org/en/download/package-manager/
 
+``` bash
+    // Installs modules
+    npm install
 
-Installs dependent modules
-  npm install
+    //NB! irc module is not maintained and cointains a bug related to channel modes
+    //Apply the included patch after npm install
 
-NB! irc module is not maintained and cointains a bug related to channel modes
-Apply the included patch after npm install
-
-  patch node_modules/irc/lib/irc.js irc.patch
+    // Patch irc module
+    patch node_modules/irc/lib/irc.js irc.patch
 
 
-Start bot with first time configuration wizard:
-  npm start
+    // Start bot with first time configuration wizard:
+    npm start
+
+```
