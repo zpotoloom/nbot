@@ -1,5 +1,3 @@
-var git = require('simple-git')('./');
-
 module.exports = {
 
 	get_updates: function(from, text, cb) {
@@ -15,6 +13,5 @@ module.exports = {
 			.then(function() {
 				console.log('pull done.');
 			})
-		});
-	}
+		}
 }
