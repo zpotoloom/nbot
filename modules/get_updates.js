@@ -7,7 +7,8 @@ module.exports = {
 			})
 			.pull(function(err, update) {
 				if(update && update.summary.changes) {
-					cb(update.summary.changes);
+					var util = require('util');
+					cb(util.inspect(update.summary));
 				}
 			})
 			.then(function() {
