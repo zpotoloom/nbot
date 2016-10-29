@@ -7,25 +7,28 @@ var irc = require("irc");
 // Checks if input matches command expression and executes modules
 function check_for_command(bot, server, from, channel, text) {
 	var fs = require('fs');
-        var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
-
-        dyna.modules.forEach(function(value, key) {
-
-                var re = new RegExp(value.expression,'i');
-                if (re.test(text)) {
-			console.log('Server: ' + server + ' Channel: ' + channel + ' User: ' + from + ' Command: ' + text);
-                        // delete module from cache to allow dynamic changes
-			delete require.cache[require.resolve('./modules/' + value.module + '.js')];
-			// load module from disk
-			var module = require('./modules/' + value.module + '.js');
-                        module[value.module](from,text, function(result) {
-                                if ( result !== false ) {
-                                        bot.say(channel, result);
-                                }
-                        });
-                        return;
-                }
-        });
+        
+	if ( fs.existsSync('./modules.json') ) {
+	        var dyna = JSON.parse(fs.readFileSync('./modules.json', 'utf8'));
+	
+	        dyna.modules.forEach(function(value, key) {
+	
+	                var re = new RegExp(value.expression,'i');
+	                if (re.test(text)) {
+				console.log('Server: ' + server + ' Channel: ' + channel + ' User: ' + from + ' Command: ' + text);
+	                        // delete module from cache to allow dynamic changes
+				delete require.cache[require.resolve('./modules/' + value.module + '.js')];
+				// load module from disk
+				var module = require('./modules/' + value.module + '.js');
+	                        module[value.module](from,text, function(result) {
+	                                if ( result !== false ) {
+	                                        bot.say(channel, result);
+	                                }
+	                        });
+	                        return;
+	                }
+	        });
+	}
 }
 
 
