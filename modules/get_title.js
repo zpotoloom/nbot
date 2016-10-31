@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 // Too much for just title, REWRITE
 var url = require('url-regexp');
 var title = require('url-to-title');
@@ -15,24 +17,29 @@ module.exports =
 	        } else {
 			var request = require('request');
 			request( url.match(text)[0], {method: 'HEAD'}, function (err, res, body){
-				var re = new RegExp('text.html');
-                		if (re.test(res.headers['content-type'])) {
-					try {
-						title( url.match(text)[0] ).then(function(title) {
-							if ( title !== undefined ) {
-				                	       	cb(trim('[ ' + title + ' ]'));
-							} else {
-								cb(false);
-							}
+				if (err) {
+					console.log(err);
+					cb(false);
+				} else {
+					var re = new RegExp('text.html');
+                			if (re.test(res.headers['content-type'])) {
+						try {
+							title( url.match(text)[0] ).then(function(title) {
+								if ( title !== undefined ) {
+					                	       	cb(trim('[ ' + title + ' ]'));
+								} else {
+									cb(false);
+								}
 
-			                	});
-					} catch (err) {
-						console.log(err);
-						cb(false);
-					}
-                                } else {
-                                        cb(false);
-                                }
+				                	});
+						} catch (err) {
+							console.log(err);
+							cb(false);
+						}
+                        	        } else {
+                        	                cb(false);
+                        	        }
+				}
                         });
 	        }
 	}
