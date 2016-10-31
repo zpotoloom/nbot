@@ -43,7 +43,7 @@ module.exports = {
 	                if ( direction == "Northwest" ) {
 	                        direction = "\u2198";
 	                }
-	                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ")  : Wind " + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ")");
+	                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ") " + result[0].current.skytext);
 	        }
 	        });
 	}
