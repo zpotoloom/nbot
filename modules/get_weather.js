@@ -6,10 +6,9 @@ module.exports = {
 	/*
 	 * Get weather for Tallinn or specified town
 	 **/
-	get_weather: function(from, location, cb) {
-	        var args = location.split(" ");
-	        var city = args[1];
-	        if ( city == undefined ) {
+	get_weather: function(from, text, cb) {
+	        var city = text.replace(/[^ ]* /, '');
+		if ( city == text ) {
 	                city = 'Tallinn';
 	        } else if ( city.length == 0 ) { city = 'Tallinn'; }
 	        weather.find({search: city, degreeType: 'C'}, function(err, result) {
