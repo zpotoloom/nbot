@@ -4,7 +4,7 @@ module.exports = {
 
 	get_pic: function(from, text, cb) {
 		var query = text.replace(/[^ ]* /, '');
-		var re = new RegExp('boobs','i');
+		var re = new RegExp('boobs|tissid|\(\.\)\(\.\)','i');
                 if (re.test(text)) {
 			query = 'boobs';
 		}

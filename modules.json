@@ -14,7 +14,7 @@
                 },
                 {
                 "description": "Usage: !pic keyword\nFetches requested keyword picture URL from tumblr",
-                "expression": "^!pic .*$|boobs",
+                "expression": "^!pic .*$|boobs|\\(\\.\\)\\(\\.\\)",
                 "command": "!pic",
                 "module": "get_pic"
                 },
