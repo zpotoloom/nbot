@@ -8,6 +8,10 @@ module.exports = {
                 if (re.test(text)) {
 			query = 'boobs';
 		}
+		var re = new RegExp('\( \. \)\( \. \)');
+		if (re.test(text)) {
+			query = 'huge boobs';
+		}
 		var q_w_opts = {
             searchTerm: query + ' site:tumblr.com',
             queryStringAddition: "&safe=off&tbs=imgo:1,isz:lt,islt:vga"
