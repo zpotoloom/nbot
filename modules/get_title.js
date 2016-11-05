@@ -1,10 +1,51 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-// Too much for just title, REWRITE
 var url = require('url-regexp');
-var title = require('url-to-title');
 var trim = require('trim');
-var request = require('request');
+
+// Check if content is text/html
+function check_header(url, cb) {
+	var request = require('request');
+	request(url, {method: 'HEAD'}, function (err, res, body) {
+		if (err) {
+			console.log(err);
+			cb(false);
+		} else {
+			var re = new RegExp('text.html');
+			if ( res.headers['content-type'] !== undefined ) {
+				var re = new RegExp('text.html');
+				if (re.test(res.headers['content-type'])) {
+					cb(true);
+				} else cb(false);
+			} else cb(false);
+		}
+	});
+}
+
+// Extract title from html body
+function extract_title(url, cb) {
+	var request = require('request');
+        request(url, {method: 'GET'}, function (err, res, body) {
+                if (err) {
+                        console.log(err);
+                        cb(false);
+                } else {
+			//console.log(body);
+                        var re = new RegExp('<title>(.*)</title>');
+			if ( body.match(re) != null ) {
+				cb(body.match(re)[1]);
+			} else {
+				var re = new RegExp('<title>(.*)\r\n');
+				if ( body.match(re) != null ) {
+					cb(body.match(re)[1]);
+				} else {
+					cb(false);
+				}
+			}
+                }
+        });
+}
+
 
 module.exports = 
 {
@@ -15,33 +56,18 @@ module.exports =
 	        if (  url.match(text)[0] == undefined ) {
 	                cb(false);
 	        } else {
-			var request = require('request');
-			request( url.match(text)[0], {method: 'HEAD'}, function (err, res, body){
-				if (err) {
-					console.log(err);
-					cb(false);
-				} else {
-					var re = new RegExp('text.html');
-                			if (re.test(res.headers['content-type'])) {
-						try {
-							title( url.match(text)[0] ).then(function(title) {
-								if ( title !== undefined ) {
-					                	       	cb(trim('[ ' + title + ' ]'));
-								} else {
-									cb(false);
-								}
-
-				                	});
-						} catch (err) {
-							console.log(err);
-							cb(false);
+			check_header(url.match(text)[0], function(result) {
+				if ( result ) {
+					extract_title(url.match(text)[0], function(title) {
+						if ( title ) {
+							cb(trim(title));
 						}
-                        	        } else {
-                        	                cb(false);
-                        	        }
+					});
+				} else {
+					cb(false);
 				}
-                        });
-	        }
-	}
+			});
+                }
+        }
 	
 }
