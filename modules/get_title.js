@@ -35,7 +35,7 @@ function extract_title(url, cb) {
 			if ( body.match(re) != null ) {
 				cb(body.match(re)[1]);
 			} else {
-				var re = new RegExp('<title>(.*)\r\n');
+				var re = new RegExp('<title>(.*)\r\n</title>');
 				if ( body.match(re) != null ) {
 					cb(body.match(re)[1]);
 				} else {
