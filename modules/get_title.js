@@ -25,7 +25,7 @@ function check_header(url, cb) {
 // Extract title from html body
 function extract_title(url, cb) {
 	var request = require('request');
-        request(url, {method: 'GET'}, function (err, res, body) {
+	request(url, {encoding: 'binary', method: 'GET'}, function (err, res, body) {
                 if (err) {
                         console.log(err);
                         cb(false);
@@ -60,7 +60,7 @@ module.exports =
 				if ( result ) {
 					extract_title(url.match(text)[0], function(title) {
 						if ( title ) {
-							cb(trim(title));
+							cb('[ ' + trim(title) + ' ]');
 						}
 					});
 				} else {
