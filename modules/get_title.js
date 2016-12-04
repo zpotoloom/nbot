@@ -30,17 +30,13 @@ function extract_title(url, cb) {
                         console.log(err);
                         cb(false);
                 } else {
-			//console.log(body);
-                        var re = new RegExp('<title>(.*)</title>');
+			// removo linebreaks
+			body = body.replace(/(\r\n|\n|\r)/gm,"");
+			var re = new RegExp('<title>(.*)</title>');
 			if ( body.match(re) != null ) {
 				cb(body.match(re)[1]);
 			} else {
-				var re = new RegExp('<title>(.*)\r\n</title>');
-				if ( body.match(re) != null ) {
-					cb(body.match(re)[1]);
-				} else {
-					cb(false);
-				}
+				cb(false);
 			}
                 }
         });
