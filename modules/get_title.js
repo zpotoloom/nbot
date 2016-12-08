@@ -34,7 +34,11 @@ function extract_title(url, cb) {
 			body = body.replace(/(\r\n|\n|\r)/gm,"");
 			var re = new RegExp('<title>(.*)</title>');
 			if ( body.match(re) != null ) {
-				cb(body.match(re)[1]);
+				var title = body.match(re)[1];
+				if ( title.length >= 100 ) {
+					title = title.substring(0,99);
+				}
+				cb(title);
 			} else {
 				cb(false);
 			}
