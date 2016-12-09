@@ -1,11 +1,9 @@
 // Read config options
 var config = require('./config.json');
 
-var irc = require("irc");
-
 
 // Checks if input matches command expression and executes modules
-function check_for_command(bot, server, from, channel, text) {
+function check_for_command(server, from, channel, text, cb) {
 	var fs = require('fs');
         
 	if ( fs.existsSync('./modules.json') ) {
@@ -22,7 +20,7 @@ function check_for_command(bot, server, from, channel, text) {
 				var module = require('./modules/' + value.module + '.js');
 	                        module[value.module](from,text, function(result) {
 	                                if ( result !== false ) {
-	                                        bot.say(channel, result);
+	                                        cb(channel, result);
 	                                }
 	                        });
 	                        return;
@@ -34,34 +32,62 @@ function check_for_command(bot, server, from, channel, text) {
 
 // connects to server, joins channels and listens for messages
 function start_bot(config) {
-	var bot = new irc.Client(config.Server, config.Nick, {
-		autoRejoin: true
-	});
+	var IRC = require('ircsock');
+
+	var options = {
+		name: 'IRC',
+		port: 6667,
+		ssl: false
+	}
+
+	options.host = config.Server;
+	options.nickname = config.Nick;
+	options.username = config.Nick;
+	options.realname = config.Nick;
+	options.password = config.Password;
 	
-	var util = require('util');
-	console.log("Connecting to " + config.Server + " channel(s) " + util.inspect(config.Channel) + " as " + config.Nick);
+	var irc = new IRC(options);
 	
-	// Join channel after motd
-	bot.addListener('motd', function(motd) {
+	irc.on('motd', function() {
+		var util = require('util');
+		console.log("Connecting to " + config.Server + " channel(s) " + util.inspect(config.Channel) + " as " + config.Nick);
 		if ( config.Channel.constructor.prototype.hasOwnProperty('push') ) {
-			config.Channel.forEach(function(value) {
-				bot.join(value);
-			});
+	        	config.Channel.forEach(function(value) {
+	                	irc.join(value);
+	                });
 		} else {
-			bot.join(config.Channels);
+			irc.join(config.Channels);
+	        }
+	});
+
+	irc.on('join', function(event) {
+		if ( event.nick == config.Nick ) {
+			console.log(event.nick + ' joined ' + event.target);
 		}
-		bot.send('PRIVMSG', 'nickserv', 'identify', config.Password);
 	});
 	
-	// Listen for errors, otherwise causes crash
-	bot.addListener('error', function(message) {
-		console.log('error: ', message);
+	// Listen for PRIVMSG
+	irc.on('privmsg', function (event) {
+	    check_for_command(config.Server, event.nick, event.target, event.message, function(channel, message){
+		irc.privmsg(channel, message);
+	    }); 
+	    if (event.message === '!exitbot') {
+	        irc.quit('leaving', function() {
+			console.log('Leave requested from ' + event.target + ' by ' + event.nick);
+		});
+	    }
 	});
 	
-	// Listen for messages 
-	bot.addListener("message", function(from, channel, text) {
-		check_for_command(bot, config.Server, from, channel, text);
+	// Reconnect when kicked
+	irc.on('kick', function ( event ) {
+		console.log(event);
+		if ( event.client == config.Nick ) {
+			irc.join(event.target);
+		}
 	});
+	
+	// Connect to server
+	irc.connect();
 }
 
 
