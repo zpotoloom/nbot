@@ -23,6 +23,12 @@
       "expression": "^!update$",
       "command": "!update",
       "module": "get_updates"
+    },
+    {
+      "description": "Usage: !sysinfo\nShows uptime and memory usage",
+      "expression": "^!sysinfo$",
+      "command": "!sysinfo",
+      "module": "get_sysinfo"
     }
 	]	
 }
