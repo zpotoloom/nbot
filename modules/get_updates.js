@@ -7,7 +7,7 @@ module.exports = {
 			})
 			.pull(function(err, update) {
         console.log(require('util').inspect(update));
-				if(update) {
+				if(update && update.summary.changes != 0) {
 					var util = require('util');
 					cb(util.inspect(update.files) + ' ' + util.inspect(update.summary));
 				}
