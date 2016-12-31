@@ -14,11 +14,12 @@ module.exports = {
       function pad(s){
         return (s < 10 ? '0' : '') + s;
       }
-      var hours = Math.floor(seconds / (60*60));
+      var days = Math.floor(seconds / 86400);
+      var hours = Math.floor((seconds % 86400) / 3600);
       var minutes = Math.floor(seconds % (60*60) / 60);
       var seconds = Math.floor(seconds % 60);
     
-      return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+      return days + ' days ' + pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
     } 
     
     usage = process.memoryUsage();
