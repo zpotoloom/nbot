@@ -22,7 +22,7 @@ module.exports = {
     } 
     
     usage = process.memoryUsage();
-    cb(  'Uptime: ' + format(process.uptime()) + ' { RSS: ' + bytesToSize(usage.rss, 3) + 'and Heap:' + bytesToSize(usage.heapUsed, 3) + 'of' + bytesToSize(usage.heapTotal, 3) + 'total }');
+    cb(  'Uptime: ' + format(process.uptime()) + ' { RSS: ' + bytesToSize(usage.rss, 3) + ' and Heap: ' + bytesToSize(usage.heapUsed, 3) + ' of ' + bytesToSize(usage.heapTotal, 3) + ' total }');
 
   }
 }
