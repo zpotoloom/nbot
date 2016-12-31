@@ -11,9 +11,6 @@ https://nodejs.org/en/download/package-manager/
     # Installs modules
     npm install
 
-    # NB! irc module is not maintained and cointains a bug related to channel modes
-    # Apply the included patch after npm install
-
     # Start bot with first time configuration wizard:
     npm start
 
