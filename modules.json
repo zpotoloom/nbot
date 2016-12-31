@@ -1,28 +1,28 @@
 {
 	"modules": [
-                {
-                "description": "Gets title from URL in text",
-                "expression": "http:|https:",
-                "command": "URL-detection",
-                "module": "get_title"
-                },
-                {
-                "description": "Usage: !ilm <location>\nFetches weather info for location, default Tallinn",
-                "expression": "^!ilm$|^!ilm .*$",
-		"command": "!ilm",
-                "module": "get_weather"
-                },
-                {
-                "description": "Usage: !pic keyword\nFetches requested keyword picture URL from tumblr",
-                "expression": "^!pic .*$|^boobs$",
-                "command": "!pic",
-                "module": "get_pic"
-                },
+    {
+      "description": "Gets title from URL in text",
+      "expression": "http:|https:",
+      "command": "URL-detection",
+      "module": "get_title"
+    },
+    {
+      "description": "Usage: !ilm <location>\nFetches weather info for location, default Tallinn",
+      "expression": "^!ilm$|^!ilm .*$",
+		  "command": "!ilm",
+      "module": "get_weather"
+    },
+    {
+      "description": "Usage: !pic keyword\nFetches requested keyword picture URL from tumblr",
+      "expression": "^!pic .*$",
+      "command": "!pic",
+      "module": "get_pic"
+    },
 		{
-                "description": "Usage: !update\nPulls latest changes from github",
-                "expression": "^!update$",
-                "command": "!update",
-                "module": "get_updates"
-                }
+      "description": "Usage: !update\nPulls latest changes from github",
+      "expression": "^!update$",
+      "command": "!update",
+      "module": "get_updates"
+    }
 	]	
 }
