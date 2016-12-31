@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "start": "sh config.sh && node nbot.js"
+    "start": "bash config.sh && node nbot.js"
   },
   "dependencies": {
     "g-i-s": "2.0.0",
