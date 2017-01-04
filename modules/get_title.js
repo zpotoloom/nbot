@@ -32,7 +32,7 @@ function extract_title(url, cb) {
                 } else {
 			// removo linebreaks
 			body = body.replace(/(\r\n|\n|\r)/gm,"");
-			var re = new RegExp('<title>(.*)</title>');
+			var re = new RegExp('<title>(.*)<\/title>');
 			if ( body.match(re) != null ) {
 				var title = body.match(re)[1];
 				if ( title.length >= 100 ) {
