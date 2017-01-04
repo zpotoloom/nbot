@@ -32,16 +32,13 @@ function extract_title(url, cb) {
                 } else {
 			// read only until first </title> tag
 			body = body.substring(body.indexOf("<title>"), body.indexOf("</title>") + 8);
-			// remove linebreaks
-			body = body.replace(/(\r\n|\n|\r)/g,"");
-			var re = new RegExp('<title>(.*)</title>$');
-			if ( body.match(re) != null ) {
-				console.log(require("util").inspect(body.match(re)[1]));
-				var title = body.match(re)[1];
-				if ( title.length >= 100 ) {
-					title = title.substring(0,99);
+			// remove linebreaks and title tags
+			body = body.replace(/(<title>|<\/title>|\r\n|\n|\r)/g,"");
+			if ( body.length != 0 ) {
+				if ( body.length >= 100 ) {
+					body = body.substring(0,99);
 				}
-				cb(title);
+				cb(body);
 			} else {
 				cb(false);
 			}
