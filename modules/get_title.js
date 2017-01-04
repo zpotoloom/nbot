@@ -30,10 +30,13 @@ function extract_title(url, cb) {
                         console.log(err);
                         cb(false);
                 } else {
-			// removo linebreaks
-			body = body.replace(/(\r\n|\n|\r)/gm,"");
-			var re = new RegExp('<title>(.*[^<])<\/title>');
+			// read only until first </title> tag
+			body = body.substring(body.indexOf("<title>"), body.indexOf("</title>") + 8);
+			// remove linebreaks
+			body = body.replace(/(\r\n|\n|\r)/g,"");
+			var re = new RegExp('<title>(.*)</title>$');
 			if ( body.match(re) != null ) {
+				console.log(require("util").inspect(body.match(re)[1]));
 				var title = body.match(re)[1];
 				if ( title.length >= 100 ) {
 					title = title.substring(0,99);
