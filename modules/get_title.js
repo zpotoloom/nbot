@@ -31,9 +31,9 @@ function extract_title(url, cb) {
                         cb(false);
                 } else {
 			// read only until first </title> tag
-			body = body.substring(body.indexOf("<title>"), body.indexOf("</title>") + 8);
+			body = body.substring(body.indexOf("<title"), body.indexOf("</title>") + 8);
 			// remove linebreaks and title tags
-			body = body.replace(/(<title>|<\/title>|\r\n|\n|\r)/g,"");
+			body = body.replace(/(<title|<\/title>|\r\n|\n|\r)/g,"");
 			if ( body.length != 0 ) {
 				if ( body.length >= 100 ) {
 					body = body.substring(0,99);
