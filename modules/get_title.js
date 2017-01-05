@@ -30,11 +30,11 @@ function extract_title(url, cb) {
                         console.log(err);
                         cb(false);
                 } else {
-			// read only until first </title> tag
-			body = body.substring(body.indexOf("<title"), body.indexOf("</title>") + 8);
-			// remove linebreaks and title tags
-			body = body.replace(/(<title|<\/title>|\r\n|\n|\r)/g,"");
-			if ( body.length != 0 ) {
+			// just ugly
+			try {
+			body = body.substring(body.indexOf("<title"), body.indexOf("</title>")).replace(/(\r\n|\n|\r)/g,"").split('>')[1];
+			} catch (e) { }
+			if ( body != null ) {
 				if ( body.length >= 100 ) {
 					body = body.substring(0,99);
 				}
