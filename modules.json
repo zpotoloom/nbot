@@ -29,6 +29,12 @@
       "expression": "^!sysinfo$",
       "command": "!sysinfo",
       "module": "get_sysinfo"
+    },
+    {
+      "description": "Usage: !õlu|!beer",
+      "expression": "^!õlu$|^!beer$",
+      "command": "!beer",
+      "module": "get_beer"
     }
 	]	
 }
