@@ -19,8 +19,9 @@ module.exports =
 			              cb(false);
 		              } else {
                     var util = require('util');
-			              cb(util.inspect(res.headers));
+			              cb(JSON.stringify(res.headers));
 		              }
 	              });
           }
+  }
 }
