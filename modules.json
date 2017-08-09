@@ -29,6 +29,12 @@
       "expression": "^!sysinfo$",
       "command": "!sysinfo",
       "module": "get_sysinfo"
+    },
+    {
+      "description": "Usage: !head <url>\nGets HEAD",
+      "expression": "^!head http",
+      "command": "!head",
+      "module": "get_head"
     }
 	]	
 }
