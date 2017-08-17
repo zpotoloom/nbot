@@ -35,6 +35,18 @@
       "expression": "^!head http",
       "command": "!head",
       "module": "get_head"
+    },
+     {
+      "description": "Usage: !remindme someone does what",
+      "expression": "^!remindme .*$",
+      "command": "!remindme",
+      "module": "reminders"
+    },
+     {
+      "description": "Usage: !reminders <who>",
+      "expression": "^!reminders .*$",
+      "command": "!reminders",
+      "module": "remindme"
     }
 	]	
 }
