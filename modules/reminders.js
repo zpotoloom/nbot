@@ -33,15 +33,15 @@ module.exports =
               if ( value.what.match(/\d+/) ) {
                   if ( value.what.match(/\d+/)[0] < new Date() ) {
                       if ( value.when.split(" ")[0] > date_days_ago(value.what.match(/\d+/)[0]) ) {
-                          cb(c.green(value.when) + ' ' + value.who + ': ' + value.what);
+                          cb(c.green(value.when) + ' ' + c.yellow(value.who) + ': ' + value.what);
                       } else {
-                          cb(c.red(value.when) + ' ' + value.who + ': ' + value.what);
+                          cb(c.red(value.when) + ' ' + c.yellow(value.who) + ': ' + value.what);
                       }
                   } else {
-                      cb(value.when + ' ' + value.who + ': ' + value.what.replace(value.what.match(/\d+/)[0],c.red(value.what.match(/\d+/)[0])));
+                      cb(value.when + ' ' + c.yellow(value.who) + ': ' + value.what.replace(value.what.match(/\d+/)[0],c.red(value.what.match(/\d+/)[0])));
                   }
               } else {
-                  cb(value.when + ' ' + value.who + ': ' + value.what);
+                  cb(value.when + ' ' + c.yellow(value.who) + ': ' + value.what);
               }
               //return;
           }
