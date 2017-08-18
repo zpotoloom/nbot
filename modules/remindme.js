@@ -6,26 +6,46 @@ module.exports =
 	 * Reminders 
 	 **/
   remindme: function(from, text, cb) {
-    var user = text.replace(/[^ ]* /, '');
-    if ( user !== '' ) {
+    var remind = text.replace(/[^ ]* /, '');
+    if ( remind !== '' ) {
 
       var reminders_file;
       try {
           reminders_file = JSON.parse(fs.readFileSync('./_data_reminders_v01.json', 'utf8'));
       } catch (err) {
           console.log(err);
-          return;
       }
 
-      reminders_file.remind.forEach(function(value, key) {
-          var re = new RegExp(user, 'i');
-          if ( re.test(value.who) ) {
-              cb(value.when + ' ' + value.who + ': ' + value.what);
-              //return;
-          }
+      console.log(reminders_file);
+
+      var key = 'remind';
+      var data = {
+          who: from,
+          what: remind,
+          when: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+      }
+
+      if ( reminders_file == undefined ) {
+
+      reminders_file = {}
+      reminders_file[key] = [];
+      reminders_file[key].push(data);
+
+      } else {
+          reminders_file[key].push(data);
+      }
+
+      fs.writeFile("./_data_reminders_v01.json", JSON.stringify(reminders_file), function(err) {
+        if(err) {
+          return console.log(err);
+        }
+          //cb(JSON.stringify(data));
       });
-    } else {
-      cb('Usage: !remindme <who>');
+
+
+    }
+    else {
+      cb('Usage: !remind someone does something');
     }
 
   }
