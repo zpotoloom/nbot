@@ -16,8 +16,6 @@ module.exports =
           console.log(err);
       }
 
-      console.log(reminders_file);
-
       var key = 'remind';
       var data = {
           who: from,

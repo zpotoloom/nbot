@@ -2,13 +2,22 @@ var fs = require('fs');
 var c = require('irc-colors');
 
 
-function date_days_ago(ndays) {
-  var today=new Date(); //Today's Date
-  var requiredDate=new Date(today.getFullYear(),today.getMonth(),today.getDate()-ndays).toISOString().replace(/T/, ' ').replace(/\..+/, '').split(" ")[0];
+function days_between(date1, date2) {
 
-  return requiredDate;
+    // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24
+
+    // Convert both dates to milliseconds
+    var date1_ms = date1.getTime()
+    var date2_ms = date2.getTime()
+
+    // Calculate the difference in milliseconds
+    var difference_ms = Math.abs(date1_ms - date2_ms)
+
+    // Convert back to days and return
+    return Math.round(difference_ms/ONE_DAY)
+
 }
-
 
 module.exports = 
 {
@@ -31,14 +40,12 @@ module.exports =
           var re = new RegExp(user, 'i');
           if ( re.test(value.who) ) {
               if ( value.what.match(/\d+/) ) {
-                  if ( value.what.match(/\d+/)[0] < new Date() ) {
-                      if ( value.when.split(" ")[0] > date_days_ago(value.what.match(/\d+/)[0]) ) {
-                          cb(c.green(value.when) + ' ' + c.yellow(value.who) + ': ' + value.what);
-                      } else {
-                          cb(c.red(value.when) + ' ' + c.yellow(value.who) + ': ' + value.what);
-                      }
+                  var days_from_what = value.what.match(/\d+/)[0],
+                      days_remaining = days_from_what - days_between(new Date(), new Date(value.when));
+                  if ( days_remaining > 0 ) {
+                      cb(c.green(value.when) + ' (' + days_remaining  + ' days remaining): ' + c.yellow(value.who) + ': ' + value.what);
                   } else {
-                      cb(value.when + ' ' + c.yellow(value.who) + ': ' + value.what.replace(value.what.match(/\d+/)[0],c.red(value.what.match(/\d+/)[0])));
+                      cb(c.red(value.when) + ' (' + days_remaining  + ' days remaining): ' + c.yellow(value.who) + ': ' + value.what);
                   }
               } else {
                   cb(value.when + ' ' + c.yellow(value.who) + ': ' + value.what);
