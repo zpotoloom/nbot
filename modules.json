@@ -44,7 +44,7 @@
     },
      {
       "description": "Usage: !reminders <who>",
-      "expression": "^!reminders .*$",
+      "expression": "^!reminders",
       "command": "!reminders",
       "module": "reminders"
     }
