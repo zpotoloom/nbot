@@ -56,9 +56,10 @@ module.exports =
 
     } else {
       var who = text.replace(/[^ ]* /, '');
-      if ( who !== '' ) {
+      if ( who !== '!reminders' ) {
           from = who;
-      } 
+      }
+      console.log(who); 
       var reminders_file;
       try {
           reminders_file = JSON.parse(fs.readFileSync('./_data_reminders_v01.json', 'utf8'));
