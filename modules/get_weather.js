@@ -17,32 +17,8 @@ module.exports = {
 	        } else {
 	                var ms = result[0].current.windspeed.split(" ")[0] / 3.6;
 	                var direction = result[0].current.winddisplay.split(" ")[2];
-	                var dir_text = direction;
-	                if ( direction == "North" ) {
-	                        direction = "\u2193";
-	                }
-	                if ( direction == "East" ) {
-	                        direction = "\u2190";
-	                }
-	                if ( direction == "West" ) {
-	                        direction = "\u2192";
-	                }
-	                if ( direction == "South" ) {
-	                        direction = "\u2191";
-	                }
-	                if ( direction == "Northeast" ) {
-	                        direction = "\u2199";
-	                }
-	                if ( direction == "Southeast" ) {
-	                        direction = "\u2196";
-	                }
-	                if ( direction == "Southwest" ) {
-	                        direction = "\u2197";
-	                }
-	                if ( direction == "Northwest" ) {
-	                        direction = "\u2198";
-	                }
-	                cb(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + ms.toFixed(1)  + " m/s " + direction + " (" + dir_text + ") " + result[0].current.skytext);
+			var trim = require('trim');
+	                cb(trim(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + ms.toFixed(1)  + " m/s (" + direction + ") " + result[0].current.skytext));
 	        }
 	        });
 	}
