@@ -70,12 +70,22 @@ function start_bot(config) {
 	irc.on('privmsg', function (event) {
 	    check_for_command(config.Server, event.nick, event.target, event.message, function(channel, message){
 		irc.privmsg(channel, message);
-	    }); 
-	    if (event.message === '!exitbot') {
-	        irc.quit('leaving', function() {
+	    });
+	    // leave channel when requested 
+	    if (event.message === '!leavechannel') {
+	        irc.part(event.target, 'leaving from ' + event.target + ' as requested by ' + event.nick, function() {
 			console.log('Leave requested from ' + event.target + ' by ' + event.nick);
 		});
 	    }
+	});
+
+	// join channel upon invite
+	irc.on('invite', function (event) {
+		var channel_regex = /.*(#.*)/g;
+		if ( match = channel_regex.exec(event.raw) ) {
+			irc.join(match[1]);
+			console.log('Joined: ' + match[1]);
+		}
 	});
 	
 	// Reconnect when kicked
