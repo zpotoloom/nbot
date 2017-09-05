@@ -15,3 +15,11 @@ https://nodejs.org/en/download/package-manager/
     npm start
 
 ```
+
+Autojoins channel when invited
+
+!leavechannel to part from channel
+
+other modular commands defined in modules.json
+
+modules can be updated from git with !update without restarting
