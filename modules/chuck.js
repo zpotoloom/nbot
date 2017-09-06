@@ -12,9 +12,7 @@ module.exports =
 		              console.log(err);
 		              cb(false);
 	              } else {
-				var util = require('util');
-		              	console.log(util.inspect(body));
-				cb(trim(body.value.joke));
+				cb(trim(JSON.parse(body).value.joke));
 	              }
               });
   }
