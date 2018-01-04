@@ -2,7 +2,9 @@
   "name": "nbot",
   "version": "0.0.3",
   "private": true,
+  "main": "nbot.js",
   "scripts": {
+    "test": "nyc mocha --require babel-register",
     "start": "bash config.sh && node nbot.js"
   },
   "dependencies": {
@@ -15,5 +17,24 @@
     "trim": "0.0.1",
     "url-regexp": "1.0.2",
     "weather-js": "1.0.2"
+  },
+	"babel": {
+    "presets": [
+      "latest"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
   }
 }
