@@ -18,7 +18,7 @@ module.exports = {
 	        var ms = result[0].current.windspeed.split(" ")[0] / 3.6;
 	        var direction = result[0].current.winddisplay.split(" ")[2];
 			    var trim = require('trim');
-	        cb(trim(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + ms.toFixed(1)  + " m/s (" + direction + ") " + result[0].current.skytext));
+	        cb(trim(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + result[0].current.humidity + "% " + ms.toFixed(1)  + " m/s (" + direction + ") " + result[0].current.skytext));
 	      }
 	    });
 	  }
