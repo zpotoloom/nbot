@@ -53,6 +53,12 @@
       "expression": "^!chuck",
       "command": "!chuck",
       "module": "chuck"
+    },
+     {
+      "description": "Usage: !insult",
+      "expression": "^!insult.*",
+      "command": "!insult",
+      "module": "insult"
     }
 	]	
 }
