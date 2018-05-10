@@ -12,8 +12,8 @@ module.exports =
 		              console.log(err);
 		              cb(false);
 	              } else {
-				if ( JSON.parse(body).value !== undefined ) {
-					cb(trim(JSON.parse(body).value.insult));
+				if ( JSON.parse(body).insult !== undefined ) {
+					cb(trim(JSON.parse(body).insult));
 				}
 	              }
               });
