@@ -50,9 +50,9 @@ function start_bot(config) {
 	
 	irc.on('motd', function() {
 		var util = require('util');
-		console.log("Connecting to " + config.Server + " channel(s) " + util.inspect(config.Channel) + " as " + config.Nick);
-		if ( config.Channel.constructor.prototype.hasOwnProperty('push') ) {
-	        	config.Channel.forEach(function(value) {
+		console.log("Connecting to " + config.Server + " channel(s) " + util.inspect(config.Channels) + " as " + config.Nick);
+		if ( config.Channels.constructor.prototype.hasOwnProperty('push') ) {
+	        	config.Channels.forEach(function(value) {
 	                	irc.join(value);
 	                });
 		} else {
