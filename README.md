@@ -1,4 +1,4 @@
-# nbot
+# nbot [![Build Status](https://travis-ci.org/zpotoloom/nbot.svg?branch=master)](https://travis-ci.org/zpotoloom/nbot)
 Simple IRC bot written in JS
 
 Dependencies
