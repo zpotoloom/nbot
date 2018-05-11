@@ -13,9 +13,27 @@ var config_params = [
   {
     name: 'Channel',
     validator: /^#.*/,
-    type: 'array',
-    warning: 'Must start with #, comma separated channels',
-    required: true
+    type: 'string',
+    warning: 'Must follow pattern of <#channel> or <#channel, #channel>',
+    required: true,
+    // validate channel input
+    conform: function (value) {
+	// remove spaces and split to channels
+	channels = value.replace(/ /g,'').split(',');
+	console.log(util.inspect(channels));
+	count = 0;
+	channels.forEach( function(element) {
+		var re = new RegExp(/^#.*/);
+		if (!re.test(element)) {
+			count++;
+		}
+	});
+	if ( count == 0 ) {
+		return true;
+	} else {
+		return false;
+	}
+    }
   },
   {
     name: 'Nick',
