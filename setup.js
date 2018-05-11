@@ -1,5 +1,4 @@
 var prompt = require('prompt');
-var util = require('util');
 
 var all_config_options = '[\n';
 
@@ -11,10 +10,10 @@ var config_params = [
     required: true
   },
   {
-    name: 'Channel',
-    validator: /^#.*/,
-    type: 'array',
-    warning: 'Must start with #, comma separated channels',
+    name: 'Channels',
+    validator: /(([, ]*#[a-z]+)+)$/, // make sure to update setup.js tests when making changes to this regex expression
+    type: 'string',
+    warning: 'Must follow the pattern of <#channel> or <#channel, #channel>',
     required: true
   },
   {
@@ -47,8 +46,11 @@ console.log('Specify IRC bot configuration parameters.');
     if (err) { return onErr(err); }
     console.log('Added server to configuration');
     console.log('  Server: ' + result.Server);
-    console.log('  Channels: ' + util.inspect(result.Channel));
+    console.log('  Channels: ' + result.Channels);
     console.log('  Nick: ' + result.Nick);
+
+    // remove all whitespaces and convert to array
+    result.Channels = result.Channels.replace(/ /g,'').split(',');
 
     config_options = JSON.stringify(result, null, 4);
     all_config_options = all_config_options + config_options;
