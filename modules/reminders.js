@@ -25,36 +25,6 @@ module.exports =
 	 * Reminders 
 	 **/
   reminders: function(from, text, cb) {
-    var delete_command = text.match(/delete/);
-    if ( delete_command ) {
-      var reminders_file;
-      try {
-          reminders_file = JSON.parse(fs.readFileSync('./_data_reminders_v01.json', 'utf8'));
-      } catch (err) {
-          console.log(err);
-          return;
-      }
-
-      var reminders_data = {},
-          key = 'remind';
-      reminders_data[key] = [];
-
-      reminders_file.remind.forEach(function(value) {
-        if ( value.who != from ) {
-          reminders_data[key].push(value);
-        } else {
-          var util = require("util");
-          console.log("Deleted: " + util.inspect(value));
-        }
-      });
-
-      fs.writeFile("./_data_reminders_v01.json", JSON.stringify(reminders_data), function(err) {
-        if(err) {
-          return console.log(err);
-        }
-      });
-
-    } else {
       var who = text.replace(/[^ ]* /, '');
       if ( who !== '!reminders' ) {
           from = who;
@@ -85,7 +55,6 @@ module.exports =
               //return;
           }
       });
-    }
 
   }
 
