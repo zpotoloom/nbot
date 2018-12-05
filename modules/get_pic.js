@@ -5,7 +5,7 @@ module.exports = {
 	get_pic: function(from, text, cb) {
 		var query = text.replace(/[^ ]* /, '');
 		var q_w_opts = {
-            searchTerm: query + ' site:tumblr.com',
+            searchTerm: query + ' site:pics',
             queryStringAddition: "&safe=off&tbs=imgo:1,isz:lt,islt:vga"
         };
 		gis(q_w_opts, logResults);
