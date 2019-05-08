@@ -45,7 +45,7 @@ describe('Module: get_weather', function() {
   });
   it('Unknown location', function(done) {
     mod_get_weather('user', '!ilm XXX', function(result) {
-      assert.equal(result, false);
+      assert.equal(result, 'Try harder!');
       done();
     });
   });
