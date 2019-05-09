@@ -15,9 +15,9 @@ module.exports = {
         } else if ( city.length == 0 ) { city = 'Tallinn'; }
             weather.find({ search: city, degreeType: 'C' }, function(err, result) {
                 if(err) {
-                    cb("Try harder!");
-                } else {
                     console.log(err);
+                    cb("Microsoft discontinued access to the MSN Weather Service API on April 15, 2016.");
+                } else {
                     var ms = result[0].current.windspeed.split(" ")[0] / 3.6;
                     var direction = result[0].current.winddisplay.split(" ")[2];
                     var trim = require('trim');
