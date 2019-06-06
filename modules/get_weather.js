@@ -10,6 +10,8 @@ module.exports = {
      **/
     get_weather: function(from, text, cb) {
         var city = text.replace(/[^ ]* /, '');
+        console.log(city);
+        console.log(text);
         if ( city == text ) {
             city = 'Tallinn';
         } else if ( city.length == 0 ) { city = 'Tallinn'; }
@@ -21,7 +23,11 @@ module.exports = {
                     var ms = result[0].current.windspeed.split(" ")[0] / 3.6;
                     var direction = result[0].current.winddisplay.split(" ")[2];
                     var trim = require('trim');
-                    cb(trim(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + result[0].current.humidity + "% " + ms.toFixed(1)    + " m/s (" + direction + ") " + result[0].current.skytext));
+                    var addition = "";
+                    if ( result[0].current.temperature >= 25 ) {
+                        addition = "Vitun kuuma se on ! ";
+                    }
+                    cb(addition + trim(result[0].current.observationpoint + ": " + result[0].current.temperature + "(" + result[0].current.feelslike + ") " + result[0].current.humidity + "% " + ms.toFixed(1)    + " m/s (" + direction + ") " + result[0].current.skytext));
                 }
             });
         }
