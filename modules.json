@@ -13,8 +13,8 @@
       "module": "get_weather"
     },
     {
-      "description": "Usage: !pic keyword\nFetches requested keyword picture URL from tumblr",
-      "expression": "^!pic .*$",
+      "description": "Usage: !pic fetches random image url from pic_reddit_urls.txt and makes request to given subreddit and chooses random image",
+      "expression": "^!pic",
       "command": "!pic",
       "module": "get_pic"
     },

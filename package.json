@@ -13,6 +13,7 @@
     "ircsock": "0.1.0",
     "node-json-db": "0.7.3",
     "prompt": "1.0.0",
+    "request": "^2.88.2",
     "simple-git": "1.59.0",
     "trim": "0.0.1",
     "url-regexp": "1.0.2",
