@@ -8,6 +8,7 @@
     "start": "bash config.sh && node nbot.js"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "g-i-s": "^2.1.3",
     "irc-colors": "1.3.0",
     "ircsock": "0.1.0",

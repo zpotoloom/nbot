@@ -1,5 +1,5 @@
 {
-	"modules": [
+  "modules": [
     {
       "description": "Gets title from URL in text",
       "expression": "http:|https:",
@@ -9,7 +9,7 @@
     {
       "description": "Usage: !ilm <location>\nFetches weather info for location, default Tallinn",
       "expression": "^!ilm$|^!ilm .*$",
-		  "command": "!ilm",
+      "command": "!ilm",
       "module": "get_weather"
     },
     {
@@ -18,7 +18,7 @@
       "command": "!pic",
       "module": "get_pic"
     },
-		{
+    {
       "description": "Usage: !update\nPulls latest changes from github",
       "expression": "^!update$",
       "command": "!update",
@@ -36,29 +36,35 @@
       "command": "!head",
       "module": "get_head"
     },
-     {
+    {
       "description": "Usage: !remindme someone does what",
       "expression": "^!remindme .*$",
       "command": "!remindme",
       "module": "remindme"
     },
-     {
+    {
       "description": "Usage: !reminders <who>",
       "expression": "^!reminders",
       "command": "!reminders",
       "module": "reminders"
     },
-     {
+    {
       "description": "Usage: !chuck",
       "expression": "^!chuck",
       "command": "!chuck",
       "module": "chuck"
     },
-     {
+    {
       "description": "Usage: !insult",
       "expression": "^!insult.*",
       "command": "!insult",
       "module": "insult"
+    },
+    {
+      "description": "Usage: !corona fetches latest statistics about the spread of corona virus",
+      "expression": "^!corona$",
+      "command": "!corona",
+      "module": "get_corona"
     }
-	]	
+  ]
 }
