@@ -16,7 +16,7 @@ module.exports = {
                 cb(error);
             }
 
-            return body;
+            cb(body);
         }
     }
 }
