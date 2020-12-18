@@ -7,7 +7,7 @@ module.exports =
 	 **/
 	insult: function(from, text, cb) {
               var request = require('request');
-              request('http://quandyfactory.com/insult/json', {method: 'GET'}, function (err, res, body) {
+              request('https://insult.mattbas.org/api/insult.json', {method: 'GET'}, function (err, res, body) {
 	              if (err) {
 		              console.log(err);
 		              cb(false);
