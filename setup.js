@@ -50,7 +50,7 @@ console.log('Specify IRC bot configuration parameters.');
     console.log('  Nick: ' + result.Nick);
 
     // remove all whitespaces and convert to array
-    result.Channels = result.Channels.replace(/ /g,'').split(',');
+    result.Channels = result.Channels.replace(/ /g, '').split(',');
 
     config_options = JSON.stringify(result, null, 4);
     all_config_options = all_config_options + config_options;
