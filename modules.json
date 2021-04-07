@@ -56,7 +56,7 @@
     },
     {
       "description": "Usage: !insult",
-      "expression": "^!insult.*",
+      "expression": "^!insult.*|^!täna",
       "command": "!insult",
       "module": "insult"
     },
