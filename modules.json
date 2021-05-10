@@ -49,6 +49,18 @@
       "module": "reminders"
     },
     {
+      "description": "Usage: !put_useless a thing that is subjectivly useless",
+      "expression": "^!put_useless .*$",
+      "command": "!put_useless",
+      "module": "put_useless"
+    },
+    {
+      "description": "Usage: !get_useless <who>",
+      "expression": "^!get_useless.*",
+      "command": "!get_useless",
+      "module": "get_useless"
+    },
+    {
       "description": "Usage: !chuck",
       "expression": "^!chuck",
       "command": "!chuck",
