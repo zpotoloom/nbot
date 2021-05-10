@@ -32,7 +32,7 @@ module.exports =
         useless_file[key].push(data);
       }
 
-      fs.writeFile("./_data_useless_v01.json", JSON.stringify(useless_file), function (err) {
+      fs.writeFile("./_data_useless_v01.json", JSON.stringify(useless_file, null, 2), function (err) {
         if (err) {
           return console.log(err);
         }
