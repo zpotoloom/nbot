@@ -22,7 +22,9 @@ module.exports =
     useless_file.useless.forEach(function (value, key) {
       var re = new RegExp(from, 'i');
       if (re.test(value.who)) {
-          cb('id: ' + value.id + ' ' + value.who + ' ' + ': ' + value.what);
+        cb('id: ' + value.id + ', who: ' + value.who + '(self), what: ' + ': ' + value.what);
+      } else {
+        cb('id: ' + value.id + ', who: ' + value.who + ', what: ' + ': ' + value.what);
       }
     });
 
