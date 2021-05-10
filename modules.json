@@ -67,12 +67,6 @@
       "module": "del_useless"
     },
     {
-      "description": "Usage: !migrate_useless",
-      "expression": "^!migrate_useless.*",
-      "command": "!migrate_useless",
-      "module": "migrate_useless"
-    },
-    {
       "description": "Usage: !chuck",
       "expression": "^!chuck",
       "command": "!chuck",
