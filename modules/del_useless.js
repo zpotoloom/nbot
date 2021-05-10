@@ -3,12 +3,9 @@ var fs = require('fs');
 module.exports =
 {
   /*
-   * Add useless item
+   * Delete useless item 
    **/
-  put_useless: function (from, text, cb) {
-    const crypto = require("crypto");
-    const id = crypto.randomBytes(8).toString("hex");
-    
+  del_useless: function (from, text, cb) {
     var useless = text.replace(/[^ ]* /, '');
     if (useless !== '') {
 
@@ -20,20 +17,16 @@ module.exports =
       }
 
       var key = 'useless';
-      var data = {
-        id: id,
-        who: from,
-        what: useless
-      }
 
       if (useless_file == undefined) {
-
-        useless_file = {}
-        useless_file[key] = [];
-        useless_file[key].push(data);
-
+        cb('No useless items available');
       } else {
-        useless_file[key].push(data);
+        for ( var i = 0; i < useless_file[key].length; i++) {
+          var regex = new RegExp( useless, 'g' );
+          if ( useless_file[key][i].id == useless || useless_file[key][i].what.match(regex) ) {
+            useless_file[key].splice(i, 1);
+          }
+        }
       }
 
       fs.writeFile("./_data_useless_v01.json", JSON.stringify(useless_file, null, 2), function (err) {
