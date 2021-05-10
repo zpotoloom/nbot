@@ -7,7 +7,7 @@ module.exports =
    **/
   put_useless: function (from, text, cb) {
     const crypto = require("crypto");
-    const id = crypto.randomBytes(8).toString("hex");
+    const id = crypto.randomBytes(4).toString("hex");
     
     var useless = text.replace(/[^ ]* /, '');
     if (useless !== '') {
