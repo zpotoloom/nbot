@@ -13,12 +13,6 @@
       "module": "get_weather"
     },
     {
-      "description": "Usage: !kmh_to_ms 10",
-      "expression": "^!kmh_to_ms .*$",
-      "command": "!kmh_to_ms",
-      "module": "kmh_to_ms"
-    },
-    {
       "description": "Usage: !pic fetches random image url from pic_reddit_urls.txt and makes request to given subreddit and chooses random image",
       "expression": "^!pic",
       "command": "!pic",
