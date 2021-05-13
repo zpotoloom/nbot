@@ -9,7 +9,7 @@ module.exports = {
       city = 'Tallinn';
     } else if (city.length == 0) { city = 'Tallinn'; }
     var request = require('request');
-    request('http://wttr.in/' + city + '?format="%l:+%c+%t+%h+%w"', { method: 'GET' }, function (err, res, body) {
+    request('http://wttr.in/' + city + '?format="%l:+%t+%h+%w"', { method: 'GET' }, function (err, res, body) {
       if (err) {
         console.log(err);
         cb(false);
