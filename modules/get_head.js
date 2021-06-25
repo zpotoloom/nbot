@@ -13,7 +13,7 @@ module.exports =
       cb(false);
     } else {
       var request = require('request');
-      request(url.match(text)[0], { method: 'HEAD' }, function (err, res, body) {
+      request(url.match(text)[0], { method: 'GET' }, function (err, res, body) {
         if (err) {
           console.log(err);
           cb(false);
