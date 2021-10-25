@@ -25,7 +25,11 @@ function check_header(url, cb) {
 // Extract title from html body
 function extract_title(url, cb) {
   var request = require('request');
-  request(url, { method: 'GET' }, function (err, res, body) {
+  request(url, { method: 'GET',
+                 headers: {
+                   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
+                 }
+               }, function (err, res, body) {
     if (err) {
       console.log(err);
       cb(false);
