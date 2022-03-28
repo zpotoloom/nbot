@@ -45,7 +45,7 @@ module.exports = {
           cb(url);
         }
         catch (error) {
-          cb(error.message + "(" + body.substring(0,25) + "...)")
+          cb(error.message + "(" + response.request.uri + ")")
         }
       }
     }
