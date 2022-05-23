@@ -23,16 +23,23 @@ module.exports = {
     var options = {
       url: urls[getIndex(urls.length)],
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
       }
     };
+
+    var giveup = false;
 
     // choose one random response if successful
     request(options, requestCallback)
 
     function requestCallback(error, response, body) {
       if (error) {
-        cb(error);
+        if ( !giveup ) {
+          giveup = true
+          request(options, requestCallback)
+        } else {
+          cb(error);
+        }
       }
       else {
         try {
@@ -45,7 +52,12 @@ module.exports = {
           cb(url);
         }
         catch (error) {
-          cb(error.message + "(" + response.request.uri.href + ")")
+          if ( !giveup ) {
+            giveup = true
+            request(options, requestCallback)
+          } else {
+            cb("I give up! " + error.message + "(" + response.request.uri.href + ")")
+          }
         }
       }
     }
