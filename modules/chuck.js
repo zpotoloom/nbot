@@ -12,9 +12,11 @@ module.exports =
         console.log(err);
         cb(false);
       } else {
-        if (JSON.parse(body).value !== undefined) {
+        if (body !== undefined && body.length > 0 &&JSON.parse(body).value !== undefined) {
           cb(trim(JSON.parse(body).value.joke));
-        }
+        } else {
+	  cb("500");
+	}
       }
     });
   }
