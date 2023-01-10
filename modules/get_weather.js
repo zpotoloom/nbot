@@ -49,15 +49,14 @@ module.exports = {
                 });
                 var geolib = require('geolib');
                 var result = geolib.orderByDistance({ latitude: lat, longitude: lon }, locations);
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < 2; i++) {
                   var a = result[i];
                   if (a.airtemperature.length > 0) {
-                    cb('(ilmateenistus.ee) '
-                    + a.name + ': Õhk '
+                    cb(''
+                    + a.name + ': '
                     + a.airtemperature + '°C '
-                    + ((a.windspeed.length > 0) ? 'Tuul ' + a.windspeed + '' : '')
-                    + ((a.windspeedmax.length > 0) ? '(' + a.windspeedmax + ')ms ' : '')
-                    + ((a.watertemperature.length > 0) ? 'Vesi ' + a.watertemperature + ' °C' : ''));
+                    + ((a.windspeed.length > 0) ? ' ' + a.windspeed + '' : '')
+                    + ((a.windspeedmax.length > 0) ? '(' + a.windspeedmax + ')ms ' : ''));
                   }
                 }
               }
