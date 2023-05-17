@@ -98,6 +98,45 @@ function start_bot(config) {
 
   // Connect to server
   irc.connect();
+
+  // Init OpenAI API if key is set
+  if (config.OpenAIKey) {
+    const { Configuration, OpenAIApi } = require("openai");
+    const configuration = new Configuration({
+      apiKey: config.OpenAIKey,
+    });
+    const openai = new OpenAIApi(configuration);
+    const history = [];
+    irc.on('privmsg', function (event) {
+      // Only respond to highlights in channels
+      if (event.message.startsWith(config.Nick + ':')) {
+        (async () => {
+          // remove bot name from message
+          var user_input = event.message.replace(config.Nick + ':', '');
+          const messages = [];
+          messages.push({ role: "user", content: user_input });
+          try {
+            const completion = await openai.createChatCompletion({
+              model: "gpt-3.5-turbo",
+              messages: messages,
+            });
+            if (completion.data !== undefined && completion.data.choices[0] !== undefined) {
+              const completion_text = completion.data.choices[0].message.content;
+              console.log(completion_text);
+              irc.privmsg(event.target, completion_text);
+            }
+          } catch (error) {
+            if (error.response) {
+              console.log(error.response.status);
+              console.log(error.response.data);
+            } else {
+              console.log(error.message);
+            }
+          }
+        })();
+      }
+    });
+  }
 }
 
 
