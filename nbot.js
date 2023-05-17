@@ -123,7 +123,23 @@ function start_bot(config) {
             if (completion.data !== undefined && completion.data.choices[0] !== undefined) {
               const completion_text = completion.data.choices[0].message.content;
               console.log(completion_text);
-              irc.privmsg(event.target, completion_text);
+              var text = completion_text.replace(/^\s*$(?:\r\n?|\n)/gm, '');
+              // splice text into lines
+              var text_array = text.split('\n');
+              // if array is empty return
+              if (text_array.length === 0) {
+                console.log(text);
+                irc.privmsg(event.target, text);
+              } else {
+                // loop through array and send each line
+                for (var i = 0; i < text_array.length; i++) {
+                  // check if line is empty
+                  if (text_array[i] !== '') {
+                    console.log(text_array[i]);
+                    irc.privmsg(event.target, text_array[i]);
+                  }
+                }
+              }
             }
           } catch (error) {
             if (error.response) {
