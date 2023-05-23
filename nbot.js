@@ -112,7 +112,7 @@ function start_bot(config) {
       if (event.message.startsWith(config.Nick + ':')) {
         (async () => {
           // remove bot name from message
-          var user_input = event.message.replace(config.Nick + ':', '');
+          var user_input = event.message.replace(config.Nick + ':', '') + '. Make it short.';
           const messages = [];
           messages.push({ role: "user", content: user_input });
           try {
