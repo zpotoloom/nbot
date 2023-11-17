@@ -1,4 +1,4 @@
-# nbot [![Build Status](https://travis-ci.org/zpotoloom/nbot.svg?branch=master)](https://travis-ci.org/zpotoloom/nbot) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=nbot&metric=alert_status)](https://sonarcloud.io/dashboard?id=nbot)
+# nbot
 
 Simple IRC bot written in JS
 
