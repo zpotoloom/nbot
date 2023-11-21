@@ -101,12 +101,10 @@ function start_bot(config) {
 
   // Init OpenAI API if key is set
   if (config.OpenAIKey) {
-    const { Configuration, OpenAIApi } = require("openai");
-    const configuration = new Configuration({
-      apiKey: config.OpenAIKey,
+    const { OpenAI } = require("openai");
+    const openai = new OpenAI({
+      apiKey: config.OpenAIKey
     });
-    const openai = new OpenAIApi(configuration);
-    const history = [];
     irc.on('privmsg', function (event) {
       // Only respond to highlights in channels
       if (event.message.startsWith(config.Nick + ':')) {
@@ -116,12 +114,12 @@ function start_bot(config) {
           const messages = [];
           messages.push({ role: "user", content: user_input });
           try {
-            const completion = await openai.createChatCompletion({
-              model: "gpt-3.5-turbo",
+            const chatCompletion = await openai.chat.completions.create({
+              model: "gpt-4-1106-preview",
               messages: messages,
             });
-            if (completion.data !== undefined && completion.data.choices[0] !== undefined) {
-              const completion_text = completion.data.choices[0].message.content;
+            if (chatCompletion.choices[0] !== undefined) {
+              const completion_text = chatCompletion.choices[0].message.content;
               console.log(completion_text);
               var text = completion_text.replace(/^\s*$(?:\r\n?|\n)/gm, '');
               // splice text into lines
