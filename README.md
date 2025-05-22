@@ -1,6 +1,6 @@
 # nbot
 
-Simple IRC bot written in JS
+Simple IRC bot written in JS 
 
 Dependencies
 
